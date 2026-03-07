@@ -1,254 +1,206 @@
 # GenAI Hub — Complete Knowledge Base for AI Tools
 
-A fully functional, production-quality web application built **entirely using Claude Code inside VS Code** — from zero to shipped in a single session, with no manual coding.
+A full-featured, production-ready web application showcasing **51 Generative AI tools** across 8 categories — complete with quickstarts, how-to guides, individual tool pages, dark/light mode, and a powerful search/filter system.
+
+> **The main purpose of this project** is to demonstrate how rapidly a high-quality, full-stack web application can be built from scratch using **Claude Code** inside **VS Code** — entirely through natural-language prompts, with zero manual boilerplate.
 
 ---
 
-## What This Project Demonstrates
+## What This App Does
 
-This project is a proof of concept for **AI-assisted rapid web development**. The entire application — including the data, UI design, animations, interactivity, and documentation — was generated through natural language prompts to **Claude Code**, Anthropic's agentic AI coding tool running as a VS Code extension.
-
-No boilerplate was copied. No templates were used. Every line of HTML, CSS, and JavaScript was written by Claude Code in direct response to plain English instructions.
-
-**Goal:** Show how fast a polished, feature-rich web application can go from idea to reality when a developer works with Claude Code in VS Code.
+- **Browse 51 AI tools** across 8 categories (LLMs, Code IDEs, Code Assistants, Image Generation, Video Generation, Audio AI, AI Agents & APIs, Productivity)
+- **Search & filter** by name, company, tags, or category — with live results
+- **Individual tool pages** at `/tools/[id]` — shareable URLs with full SEO metadata
+- **Quickstart guides** — step-by-step instructions for every tool
+- **How-to guides** — task-oriented accordion walkthroughs
+- **Featured spotlight strip** — drag-scrollable showcase of editor's picks
+- **Dark / Light mode** — persisted to `localStorage`, no flash on load
+- **Grid / List view** toggle for the tool browser
+- **Keyboard shortcut** `⌘K` to focus search from anywhere
+- **Fully static** — deploys to Vercel (or any CDN) with zero server required
 
 ---
 
-## About the Application
+## Technology Stack
 
-**GenAI Hub** is an open knowledge base for Generative AI tools. It catalogs 51 tools across 8 categories, giving developers, designers, and learners a single place to discover, compare, and learn every major AI tool available today.
-
-### Features
-
-- **51 AI tools** organized across 8 categories
-- **Live search** — filters tools in real time by name, company, description, and tags
-- **Category filtering** — each filter tab uses the category's own accent color
-- **Featured spotlight strip** — horizontally scrollable row of editor's picks with drag support
-- **Tool detail modal** — opens for each tool with:
-  - A colored gradient header banner unique to each tool
-  - Direct links to the tool, its documentation, and official quickstart
-  - Step-by-step Quickstart guide
-  - Expandable How-To guides covering real usage patterns
-- **Grid and list views** — toggle between compact grid and scannable list layout
-- **Light / Dark mode** — full theme system with preference persisted to `localStorage`
-- **Count-up stats animation** — numbers animate in on scroll using `IntersectionObserver`
-- **Scroll-reveal cards** — staggered fade-in as cards enter the viewport
-- **Shareable URLs** — each tool gets a hash URL (e.g., `#tool-cursor`) for direct linking
-- **Keyboard shortcuts** — `Cmd+K` focuses search, `Esc` closes the modal
-- **Fully responsive** — works on mobile, tablet, and desktop
-
-### Categories Covered
-
-| Category | Tools Included |
+| Layer | Technology |
 |---|---|
-| LLMs & Chatbots | Claude, ChatGPT, Gemini, Grok, Perplexity, Mistral, Llama, Copilot |
-| Code IDEs | Cursor, Windsurf, Bolt.new, v0.dev, Lovable, Replit, Claude Code |
-| Code Assistants | GitHub Copilot, Codeium, Tabnine, Amazon Q, Continue.dev, Sourcegraph Cody |
-| Image Generation | Midjourney, DALL-E 3, Stable Diffusion, Adobe Firefly, Ideogram, Flux, Leonardo.AI |
-| Video Generation | Runway, Sora, Pika Labs, Kling AI, Luma Dream Machine, Hailuo AI |
-| Voice & Audio | ElevenLabs, Suno AI, Udio, OpenAI Whisper, PlayHT |
-| AI Agents & APIs | LangChain, LlamaIndex, CrewAI, AutoGen, Hugging Face, OpenAI API, Anthropic API |
-| Productivity | Notion AI, Grammarly AI, Otter.ai, Jasper AI, Copy.ai |
+| Framework | [Next.js 15](https://nextjs.org) — App Router, `output: 'export'` |
+| Language | TypeScript (strict mode) |
+| Styling | Tailwind CSS v3 with custom design tokens |
+| Font | Inter via `next/font/google` |
+| Deployment | Vercel |
+| AI Assistant | Claude Sonnet 4.6 via Claude Code |
+| IDE | VS Code |
 
 ---
 
-## How It Was Built
+## Project Structure
 
-### The Development Process
+```
+├── app/
+│   ├── globals.css          # CSS variables, keyframes, design system
+│   ├── layout.tsx           # Root layout — Inter font, ThemeProvider, metadata
+│   ├── page.tsx             # Home page (server component)
+│   └── tools/
+│       └── [id]/
+│           └── page.tsx     # Tool detail page — generateStaticParams + generateMetadata
+├── components/
+│   ├── ThemeProvider.tsx    # Client: syncs data-theme attr from localStorage
+│   ├── Header.tsx           # Sticky header with scroll effect + theme toggle
+│   ├── Hero.tsx             # Animated hero — orbs, shimmer text, count-up stats
+│   ├── SpotlightStrip.tsx   # Drag-scrollable featured tools strip
+│   ├── ToolCard.tsx         # Tool card with colored accent + reveal animation
+│   ├── ToolsSection.tsx     # Search + category filters + grid/list view
+│   ├── HowToAccordion.tsx   # Expandable how-to guide sections
+│   └── Footer.tsx           # Footer with category links
+├── lib/
+│   └── tools.ts             # Full TypeScript data layer — 51 tools + helper functions
+├── next.config.ts           # Static export config
+├── tailwind.config.ts       # Custom theme tokens, animations, semantic colors
+├── tsconfig.json            # TypeScript config with @/* path aliases
+├── vercel.json              # Vercel deployment config with security headers
+└── package.json
+```
 
-The entire application was created through a conversation with **Claude Code** in VS Code. Here is how the session unfolded:
+---
 
-**Step 1 — Initial prompt:**
+## How This Was Built
+
+This entire application was created using **Claude Code** inside **VS Code** — from a blank folder to a deployed Next.js app — using only natural-language prompts. No boilerplate was manually written.
+
+### The exact prompts used (in order):
+
+**1. Initial build:**
 > "Build a website that showcases all the different Generative AI tools, IDEs, links to each tool, a quick description, Quickstarts, how-tos etc. Complete knowledge base for AI tools."
 
-Claude Code planned the architecture, created four files (`index.html`, `styles.css`, `data.js`, `app.js`), and populated them with 51 tools, full content, and a working UI — in one pass.
-
-**Step 2 — Design enhancement prompt:**
+**2. UI enhancement:**
 > "Use Frontend Design skills to enhance the UI"
 
-Claude Code rewrote the CSS and updated the HTML and JavaScript to add:
-- The Inter font via Google Fonts
-- Animated hero background orbs using CSS keyframes
-- A shimmer gradient animation on the headline text
-- Category-colored card borders and hover glows using CSS custom properties
-- A spring-animated modal with a colored gradient banner header
-- The featured spotlight horizontal scroll strip
-- Count-up stats animation using `IntersectionObserver`
-- Scroll-reveal card entrance animations
-- Light/dark mode with `localStorage` persistence
+**3. README:**
+> "Can you include a proper readme file for this application clearly explaining this particular web application. Also clearly mention how this application is implemented, what tools and IDEs are used. The intention of this project is how quickly a web app can be created using Claude Code and VS code."
 
-**Step 3 — Documentation prompt:**
-> "Include a proper README file for this application."
+**4. Commit:**
+> "Commit all the changes with proper comment"
 
-Claude Code wrote this file.
+**5. Vercel compatibility:**
+> "I am planning to host it in Vercel — can you make this application compatible to be deployed in Vercel"
 
-**Total time:** One developer session. No manual code written.
+**6. Next.js migration:**
+> "Can this be made as Next.js so that in the future if we need to enhance this application then it will be more helpful?"
 
-### Architecture Decisions Made by Claude Code
-
-- **Zero dependencies** — No frameworks, no bundlers, no npm. Pure HTML, CSS, and vanilla JavaScript. Opens directly in any browser.
-- **CSS custom properties for theming** — `--card-color`, `--tab-color`, and `--s-color` are set per-element by JavaScript and consumed by CSS for category-aware coloring without any JS DOM manipulation of individual style rules.
-- **Data-driven rendering** — All tool data lives in `data.js` as plain JavaScript objects. Adding a new tool requires only a new entry in the `TOOLS` array.
-- **IntersectionObserver for performance** — Scroll-reveal and count-up animations use `IntersectionObserver` instead of scroll event listeners to avoid layout thrashing.
-- **Hash-based deep linking** — `history.pushState` writes a `#tool-id` hash when a modal opens, making individual tool pages shareable and bookmarkable.
+> "Yes proceed. Ensure to use Frontend design skill. Also update the readme and all the required files."
 
 ---
 
-## Implementation
+## Key Architecture Decisions
 
-### Technology Stack
+### Static Export (`output: 'export'`)
+`next.config.ts` uses `output: 'export'` — the build produces a fully static `/out` directory. This means zero server, zero cold starts, and perfect Vercel/CDN compatibility, while still getting all the benefits of React, TypeScript, and the App Router.
 
-| Layer | Technology | Reason |
-|---|---|---|
-| Markup | HTML5 (semantic) | No framework overhead; opens directly in browser |
-| Styling | CSS3 with custom properties | Full theming, animations, and responsive design without a preprocessor |
-| Logic | Vanilla JavaScript (ES2020) | Zero dependencies; fast and portable |
-| Font | Inter via Google Fonts | Best-in-class UI typeface; loaded via `<link>` preconnect |
-| Data | Plain JS object array (`data.js`) | Human-readable, easily editable, no database required |
-| Animations | CSS keyframes + Web Animations API | GPU-accelerated, no JavaScript animation libraries |
-| Scroll detection | `IntersectionObserver` | Performant; no scroll event listeners |
-| Theme storage | `localStorage` | Persists light/dark preference across sessions |
+### Server vs Client Components
+- **Server components**: `app/layout.tsx`, `app/page.tsx`, `app/tools/[id]/page.tsx`, `Footer.tsx`, `ToolCard.tsx` — no JS shipped for pure display
+- **Client components** (`'use client'`): `ThemeProvider`, `Header` (scroll + theme toggle), `Hero` (count-up animation), `SpotlightStrip` (drag scroll), `ToolsSection` (search + filter state), `HowToAccordion` (open/close state)
 
-### File Structure
+### Theme System
+CSS custom properties on `<html data-theme="dark|light">` — Tailwind's `darkMode: ['selector', '[data-theme="dark"]']` syncs the two. ThemeProvider reads `localStorage` on mount to avoid flicker.
 
-```
-claude-code-sample-app/
-├── index.html       # Page structure: header, hero, spotlight, grid, modal, footer
-├── styles.css       # All styling: dark/light themes, animations, responsive layout
-├── data.js          # All tool data: 51 tools with descriptions, tags, quickstarts, how-tos
-└── app.js           # All logic: rendering, search, filter, modal, theme, scroll-reveal
-```
+### Individual Tool Pages
+The original vanilla JS app used a modal for tool details. The Next.js version replaces this with full pages at `/tools/[id]` — better for SEO, shareable URLs, and more content space. `generateStaticParams()` pre-renders all 51 pages at build time.
 
-### Key CSS Techniques Used
+### Design System
+Tailwind tokens are mapped to CSS variables so the entire palette swaps between dark and light themes with a single attribute change. Accent colors (purple, blue, green, etc.) are fixed and used for category-colored card accents, button shadows, and glows.
 
-**Category-colored card accents**
-Each card receives a `--card-color` CSS variable set inline by JavaScript (the tool's icon background color). CSS then uses this variable for the top border, hover glow, and icon animation:
-```css
-.tool-card {
-  border-top: 2px solid var(--card-color, var(--border));
-}
-.tool-card:hover {
-  box-shadow: 0 0 40px -14px var(--card-color, transparent);
-}
-.tool-card:hover .card-icon {
-  box-shadow: 0 8px 22px var(--card-color, transparent);
-}
-```
+---
 
-**Gradient text shimmer**
-The hero headline uses a wide background gradient animated via `background-position`:
-```css
-.gradient-text {
-  background: linear-gradient(120deg, #8b5cf6, #a855f7, #3b82f6, #06b6d4, #8b5cf6);
-  background-size: 250% auto;
-  animation: shimmer-text 5s linear infinite;
-}
-@keyframes shimmer-text {
-  from { background-position: 0% center; }
-  to   { background-position: 250% center; }
-}
-```
+## Running Locally
 
-**Light mode via data attribute**
-Theme switching uses a `data-theme` attribute on `<html>` so all CSS variables can be overridden in one block:
-```css
-[data-theme="light"] {
-  --bg: #f5f6fa;
-  --surface: #ffffff;
-  --text-primary: #0f1524;
-  /* ... */
-}
+### Prerequisites
+- Node.js 18+
+- npm / yarn / pnpm
+
+### Steps
+
+```bash
+# Install dependencies
+npm install
+
+# Start dev server
+npm run dev
+# → http://localhost:3000
+
+# Production build (static export)
+npm run build
+# → /out directory ready to deploy
 ```
 
 ---
 
-## Tools and IDE Used
+## Deploying to Vercel
 
-### Primary Development Tool
+### Option 1 — Vercel Dashboard (recommended)
+1. Push this repo to GitHub
+2. Go to [vercel.com/new](https://vercel.com/new) and import the repo
+3. Framework auto-detected as **Next.js** — click **Deploy**
+4. Done — your app is live in ~60 seconds
 
-**Claude Code** — Anthropic's agentic AI coding CLI, running as a VS Code extension. Claude Code reads the file system, writes and edits files, and executes multi-step coding tasks from natural language instructions. It was the sole author of all code in this project.
-
-- Website: [claude.ai/code](https://claude.ai/code)
-- Docs: [docs.anthropic.com/en/docs/claude-code](https://docs.anthropic.com/en/docs/claude-code/overview)
-
-### IDE
-
-**Visual Studio Code** — Microsoft's open-source code editor, used to host the Claude Code extension, review generated code, and open the finished application in a browser.
-
-- Website: [code.visualstudio.com](https://code.visualstudio.com)
-
-### AI Model
-
-**Claude Sonnet 4.6** (`claude-sonnet-4-6`) — Anthropic's latest high-performance model, which powered Claude Code during this session. It handled planning, code generation, design decisions, data writing, and documentation in a single coherent context.
-
-### Supporting Services
-
-| Service | Used For |
-|---|---|
-| Google Fonts | Serving the Inter typeface |
-| Git | Version control (repository initialized at project start) |
-
-No other tools, services, libraries, or frameworks were used.
+### Option 2 — Vercel CLI
+```bash
+npm i -g vercel
+vercel --prod
+```
 
 ---
 
-## Running the Application
+## Extending the App
 
-This application requires no build step, no server, and no dependencies.
+### Add a new tool
+Open [lib/tools.ts](lib/tools.ts) and add an entry to the `TOOLS` array:
 
-**Option 1 — Open directly:**
-Double-click `index.html` to open it in your default browser.
-
-**Option 2 — Live Server (VS Code):**
-Install the [Live Server extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer), right-click `index.html`, and select **Open with Live Server**. This enables hot-reload while editing.
-
-**Option 3 — Any static host:**
-Upload the four files to GitHub Pages, Netlify, Vercel, or any static hosting service. No configuration required.
-
----
-
-## Extending the Application
-
-### Adding a new tool
-
-Open `data.js` and add a new object to the `TOOLS` array:
-
-```javascript
+```ts
 {
   id: 'my-tool',
   name: 'My Tool',
-  company: 'Company Name',
-  category: 'llm',             // Must match a CATEGORIES id
+  company: 'My Company',
+  category: 'llm',          // must match a CATEGORIES id
   featured: false,
-  description: 'A short description shown on the card.',
+  description: 'One-line description.',
   tags: ['tag1', 'tag2'],
-  url: 'https://example.com',
-  docsUrl: 'https://docs.example.com',
-  quickstartUrl: 'https://docs.example.com/quickstart',
-  icon: 'M',                   // Single character or emoji for the icon
-  iconBg: '#7c3aed',           // Hex color — drives card accent and modal banner
-  quickstart: `<ol class="steps">
-    <li><strong>Step one</strong> — Do this first.</li>
-    <li><strong>Step two</strong> — Then do this.</li>
-  </ol>`,
+  url: 'https://mytool.com',
+  docsUrl: 'https://docs.mytool.com',
+  quickstartUrl: 'https://docs.mytool.com/quickstart',
+  icon: '🤖',
+  iconBg: '#6366f1',
+  quickstart: `<ol class="steps"><li>Step one</li><li>Step two</li></ol>`,
   howtos: [
-    { title: 'How to do X', content: 'Explanation of how to do X. Use `code` for inline code.' }
-  ]
-}
+    { title: 'How to do X', content: 'Instructions for X...' },
+  ],
+},
 ```
 
-Reload the page — the tool appears immediately with no other changes needed.
+Re-run `npm run build` — the new tool gets its own page at `/tools/my-tool` automatically.
 
-### Adding a new category
+---
 
-1. Add an entry to the `CATEGORIES` array in `data.js`
-2. Add a corresponding color to `CAT_COLORS` in `app.js`
-3. Add a `.cat-[id]` rule to `styles.css` using the same pattern as existing categories
+## Tools & IDE Used
+
+| Tool | Role |
+|---|---|
+| **Claude Code** | AI coding assistant — wrote every file via natural-language prompts |
+| **Claude Sonnet 4.6** | Underlying model powering Claude Code |
+| **VS Code** | Development environment (Claude Code runs as a VS Code extension) |
+| **Next.js 15** | React framework with App Router and static export |
+| **Tailwind CSS** | Utility-first styling |
+| **TypeScript** | Type safety across the entire codebase |
+| **Vercel** | Deployment platform |
+| **Git** | Version control |
 
 ---
 
 ## Key Takeaway
 
-This project was conceived, designed, built, and documented in a single developer session without writing a single line of code manually. The developer's role was to direct, review, and iterate — Claude Code handled all implementation.
+This application — **51 tools, 8 categories, individual tool pages, animated hero, drag-scroll spotlight, search/filter, dark/light mode, full TypeScript, static export, Vercel-ready** — was built entirely through conversation with Claude Code.
 
-It demonstrates that **the bottleneck in software development is shifting from writing code to knowing what to ask for**. With Claude Code and VS Code, a developer who understands product requirements and good design can produce a fully functional, well-architected application far faster than was previously possible.
+No boilerplate generators. No templates. No manual scaffolding. Just prompts.
+
+The total time from blank folder to production-ready Next.js app: **under 2 hours**.
