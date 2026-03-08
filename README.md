@@ -382,8 +382,9 @@ The app is not static — it stays up to date automatically using a combination 
 flowchart TD
     A([🗓️ Every Monday\nGitHub Actions Cron]) --> B[sync-tools.ts\nscript runs]
     B --> C[Fetch existing tool names\nfrom Supabase]
-    C --> D[Call Claude API\nclaude-sonnet-4-6]
-    D --> E{Claude suggests\nup to 5 new tools}
+    C --> D[Claude API\nclaude-sonnet-4-5]
+    D --> W[🌐 web_search tool\nSearches live internet]
+    W --> E{Up to 10 new tools\nfound on the web}
     E -->|New tools found| F[Upsert tools\ninto Supabase DB]
     E -->|Nothing new| Z([Done — no changes])
     F --> G[Trigger Vercel\nDeploy Hook]
@@ -397,12 +398,14 @@ flowchart TD
     N --> L
 ```
 
+> **No knowledge cutoff** — Claude uses its built-in `web_search` tool to find tools launched this week, this month, or any time. The sync is always current.
+
 ### Component breakdown
 
 | Component | Role | Cost |
 |---|---|---|
 | **Supabase** | PostgreSQL database — stores all tool data | Free tier |
-| **Claude API** (Sonnet) | Discovers new AI tools weekly | ~$1.65/year |
+| **Claude API + web_search** | Searches live web for new AI tools weekly | ~$2/year |
 | **GitHub Actions** | Runs the sync cron every Monday 9am UTC | Free (public repo) |
 | **Vercel ISR** | Pages revalidate every hour without a full redeploy | Free tier |
 
