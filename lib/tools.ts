@@ -40,20 +40,26 @@ export const CAT_COLORS: Record<string, string> = {
   audio:           '#ec4899',
   agents:          '#6366f1',
   productivity:    '#06b6d4',
+  'vector-db':     '#14b8a6',
+  'api-sdk':       '#f97316',
+  search:          '#84cc16',
 };
 
 // ─── Categories ────────────────────────────────────────────────────────────────
 
 export const CATEGORIES: Category[] = [
-  { id: 'all',             label: 'All Tools',       icon: '🔮', color: '#8b5cf6' },
-  { id: 'llm',             label: 'LLMs & Chatbots',  icon: '🧠', color: '#8b5cf6' },
-  { id: 'code-ide',        label: 'Code IDEs',         icon: '💻', color: '#3b82f6' },
-  { id: 'code-assistant',  label: 'Code Assistants',   icon: '⚡', color: '#10b981' },
-  { id: 'image',           label: 'Image Generation',  icon: '🎨', color: '#f59e0b' },
-  { id: 'video',           label: 'Video Generation',  icon: '🎬', color: '#ef4444' },
-  { id: 'audio',           label: 'Voice & Audio',     icon: '🎵', color: '#ec4899' },
-  { id: 'agents',          label: 'AI Agents & APIs',  icon: '🤖', color: '#6366f1' },
-  { id: 'productivity',    label: 'Productivity',       icon: '📊', color: '#06b6d4' },
+  { id: 'all',             label: 'All Tools',            icon: '🔮', color: '#8b5cf6' },
+  { id: 'llm',             label: 'LLMs & Chatbots',      icon: '🧠', color: '#8b5cf6' },
+  { id: 'code-ide',        label: 'Code IDEs',             icon: '💻', color: '#3b82f6' },
+  { id: 'code-assistant',  label: 'Code Assistants',       icon: '⚡', color: '#10b981' },
+  { id: 'image',           label: 'Image Generation',      icon: '🎨', color: '#f59e0b' },
+  { id: 'video',           label: 'Video Generation',      icon: '🎬', color: '#ef4444' },
+  { id: 'audio',           label: 'Voice & Audio',         icon: '🎵', color: '#ec4899' },
+  { id: 'agents',          label: 'AI Agents & Frameworks',icon: '🤖', color: '#6366f1' },
+  { id: 'productivity',    label: 'Productivity',           icon: '📊', color: '#06b6d4' },
+  { id: 'vector-db',       label: 'Vector DBs & RAG',      icon: '🗄️', color: '#14b8a6' },
+  { id: 'api-sdk',         label: 'APIs & SDKs',           icon: '🔌', color: '#f97316' },
+  { id: 'search',          label: 'AI Search',             icon: '🔍', color: '#84cc16' },
 ];
 
 // ─── Tools ─────────────────────────────────────────────────────────────────────

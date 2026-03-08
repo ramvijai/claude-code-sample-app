@@ -1,10 +1,22 @@
-# GenAI Hub — Complete Knowledge Base for AI Tools
-
-A full-featured, production-ready web application showcasing **51 Generative AI tools** across 8 categories — complete with quickstarts, how-to guides, individual tool pages, dark/light mode, and a powerful search/filter system.
+# GenAI Hub — The Live Directory of Generative AI Tools
 
 **Live demo:** [https://claude-code-sample-app.vercel.app](https://claude-code-sample-app.vercel.app)
 
-> **The main purpose of this project** is to demonstrate how rapidly a high-quality, full-stack web application can be built from scratch using **Claude Code** inside **VS Code** — entirely through natural-language prompts, with zero manual boilerplate.
+---
+
+## Two purposes, one app
+
+### 1. A genuinely useful resource
+A comprehensive, always-current directory of **every notable generative AI tool, IDE, service, API, and framework** — with quickstarts, how-to guides, search, and category filters. Data is kept live automatically: Claude searches the web every week and adds new tools without any manual work.
+
+**Categories covered:** LLMs & Chatbots · Code IDEs · Code Assistants · Image Generation · Video Generation · Voice & Audio · AI Agents & Frameworks · Vector DBs & RAG · APIs & SDKs · AI Search · Productivity
+
+### 2. A proof of what's possible with AI tools
+This entire application — design, code, database, deployment pipeline, demo video, and weekly automation — was built from a **blank folder in under 2 hours** using only natural-language prompts to Claude Code. No manual boilerplate. No prior setup.
+
+**Tools used to build it:** Claude Code · VS Code · Next.js 15 · Supabase · Vercel · ElevenLabs · Remotion · GitHub Actions · Anthropic API
+
+---
 
 ---
 

@@ -37,6 +37,9 @@ const VALID_CATEGORIES = [
   'audio',
   'agents',
   'productivity',
+  'vector-db',
+  'api-sdk',
+  'search',
 ];
 
 async function main() {
