@@ -4,9 +4,10 @@ import type { Metadata } from 'next';
 import {
   getAllTools,
   getToolById,
+  getToolIds,
   getCategoryMeta,
   getRelatedTools,
-} from '@/lib/tools';
+} from '@/lib/tools-db';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import HowToAccordion from '@/components/HowToAccordion';
@@ -14,13 +15,20 @@ import ToolCard from '@/components/ToolCard';
 
 type Props = { params: Promise<{ id: string }> };
 
+// Revalidate every hour — new tools added by the cron job become available
+export const revalidate = 3600;
+
+// Pre-render all known tool pages; new tools added by cron get rendered on first visit
+export const dynamicParams = true;
+
 export async function generateStaticParams() {
-  return getAllTools().map((tool) => ({ id: tool.id }));
+  const ids = await getToolIds();
+  return ids.map((id) => ({ id }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const tool = getToolById(id);
+  const tool = await getToolById(id);
   if (!tool) return {};
   return {
     title: `${tool.name} — GenAI Hub`,
@@ -35,11 +43,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ToolPage({ params }: Props) {
   const { id } = await params;
-  const tool = getToolById(id);
+  const [tool, allTools] = await Promise.all([getToolById(id), getAllTools()]);
   if (!tool) notFound();
 
   const category = getCategoryMeta(tool.category);
-  const related = getRelatedTools(tool, 4);
+  const related = getRelatedTools(tool, 4, allTools);
 
   return (
     <>

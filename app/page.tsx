@@ -1,12 +1,15 @@
-import { getFeaturedTools } from '@/lib/tools';
+import { getAllTools, getFeaturedTools } from '@/lib/tools-db';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import SpotlightStrip from '@/components/SpotlightStrip';
 import ToolsSection from '@/components/ToolsSection';
 import Footer from '@/components/Footer';
 
-export default function Home() {
-  const featured = getFeaturedTools();
+// Revalidate every hour — Vercel ISR keeps the page fresh without a full redeploy
+export const revalidate = 3600;
+
+export default async function Home() {
+  const [featured, allTools] = await Promise.all([getFeaturedTools(), getAllTools()]);
 
   return (
     <>
@@ -33,7 +36,7 @@ export default function Home() {
           </div>
         </section>
 
-        <ToolsSection />
+        <ToolsSection tools={allTools} />
       </main>
       <Footer />
     </>

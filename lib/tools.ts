@@ -577,8 +577,8 @@ export function getCategoryMeta(id: string): Category {
   return CATEGORIES.find(c => c.id === id) ?? CATEGORIES[0];
 }
 
-export function getRelatedTools(tool: Tool, count = 3): Tool[] {
-  return TOOLS
+export function getRelatedTools(tool: Tool, count = 3, pool: Tool[] = TOOLS): Tool[] {
+  return pool
     .filter(t => t.id !== tool.id && t.category === tool.category)
     .slice(0, count);
 }

@@ -1,9 +1,10 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  output: 'export',          // Static export — zero server needed, perfect for Vercel
+  // Removed output: 'export' — now using SSR + ISR so pages fetch live
+  // data from Supabase and revalidate on schedule without a full redeploy.
   trailingSlash: false,
-  images: { unoptimized: true }, // Required for static export
+  images: { unoptimized: true },
 };
 
 export default nextConfig;

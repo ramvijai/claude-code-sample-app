@@ -1,18 +1,24 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { CATEGORIES, searchTools, getCategoryCounts, getAllTools } from '@/lib/tools';
+import { CATEGORIES } from '@/lib/tools';
+import { filterTools, buildCategoryCounts } from '@/lib/tools-db';
+import type { Tool } from '@/lib/tools-db';
 import ToolCard from './ToolCard';
 
-export default function ToolsSection() {
+interface Props {
+  tools: Tool[];
+}
+
+export default function ToolsSection({ tools }: Props) {
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('all');
   const [isListView, setIsListView] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
 
-  const counts = getCategoryCounts();
-  const results = searchTools(query, category === 'all' ? undefined : category);
-  const totalTools = getAllTools().length;
+  const counts = buildCategoryCounts(tools);
+  const results = filterTools(tools, query, category);
+  const totalTools = tools.length;
 
   // Scroll-reveal for cards
   useEffect(() => {
