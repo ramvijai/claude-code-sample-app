@@ -18,22 +18,183 @@ A full-featured, production-ready web application showcasing **51 Generative AI 
 - **Featured spotlight strip** — drag-scrollable showcase of editor's picks
 - **Dark / Light mode** — persisted to `localStorage`, no flash on load
 - **Grid / List view** toggle for the tool browser
-- **Keyboard shortcut** `⌘K` to focus search from anywhere
+- **Keyboard shortcut** `⌘K` / `Ctrl+K` to focus search from anywhere
 - **Fully static** — deploys to Vercel (or any CDN) with zero server required
 
 ---
 
-## Technology Stack
+## Try It Now (No Setup Required)
 
-| Layer | Technology |
+The easiest way to explore the app is via the live deployment:
+
+**[https://claude-code-sample-app.vercel.app](https://claude-code-sample-app.vercel.app)**
+
+No account, no login, no API key needed.
+
+---
+
+## Running Locally — End-to-End Guide
+
+### Prerequisites
+
+Before you begin, make sure you have the following installed:
+
+| Requirement | Version | How to check | Download |
+|---|---|---|---|
+| **Node.js** | 18 or higher | `node --version` | [nodejs.org](https://nodejs.org) |
+| **npm** | Comes with Node.js | `npm --version` | (included with Node.js) |
+| **Git** | Any recent version | `git --version` | [git-scm.com](https://git-scm.com) |
+
+> **Windows users:** Use Git Bash, PowerShell, or Windows Terminal. Command Prompt also works.
+> **Mac/Linux users:** Your system terminal is fine.
+
+---
+
+### Step 1 — Clone the Repository
+
+```bash
+git clone https://github.com/ramvijai/claude-code-sample-app.git
+cd claude-code-sample-app
+```
+
+---
+
+### Step 2 — Install Dependencies
+
+```bash
+npm install
+```
+
+This installs all required packages (Next.js, React, Tailwind CSS, TypeScript, etc.) into a local `node_modules` folder. It takes about 30–60 seconds on the first run.
+
+Expected output:
+```
+added 353 packages, and audited 354 packages in Xs
+found 0 vulnerabilities
+```
+
+---
+
+### Step 3 — Start the Development Server
+
+```bash
+npm run dev
+```
+
+Expected output:
+```
+▲ Next.js 15.x.x
+- Local:   http://localhost:3000
+✓ Ready in ~3s
+```
+
+Open your browser and go to **[http://localhost:3000](http://localhost:3000)**.
+
+The dev server supports **hot reload** — any file changes you save will instantly update in the browser without a full refresh.
+
+---
+
+### Step 4 — Explore the App
+
+Once running, here's what you can try:
+
+| Feature | How to use |
 |---|---|
-| Framework | [Next.js 15](https://nextjs.org) — App Router, `output: 'export'` |
-| Language | TypeScript (strict mode) |
-| Styling | Tailwind CSS v3 with custom design tokens |
-| Font | Inter via `next/font/google` |
-| Deployment | Vercel |
-| AI Assistant | Claude Sonnet 4.6 via Claude Code |
-| IDE | VS Code |
+| **Browse tools** | Scroll down the home page to see all 51 tools |
+| **Search** | Click the search bar (or press `Ctrl+K` / `⌘K`) and type any tool name, tag, or company |
+| **Filter by category** | Click any category chip (LLMs, Code IDEs, Image, etc.) |
+| **View a tool** | Click any tool card to open its dedicated page with quickstart & how-to guides |
+| **Toggle theme** | Click the sun/moon icon in the top-right header |
+| **Switch layout** | Use the grid/list toggle buttons in the tools section |
+| **Spotlight strip** | Drag the featured tools strip horizontally |
+
+---
+
+### Step 5 (Optional) — Production Build
+
+To build the static site exactly as it gets deployed to Vercel:
+
+```bash
+npm run build
+```
+
+This generates an `out/` folder containing fully static HTML, CSS, and JS — no server required. You can serve it with any static file host:
+
+```bash
+# Serve the static build locally (requires npx)
+npx serve out
+# → http://localhost:3000
+```
+
+---
+
+## Deploying Your Own Copy to Vercel
+
+Follow these steps to deploy your own instance in under 5 minutes.
+
+### Prerequisites
+- A [GitHub](https://github.com) account
+- A [Vercel](https://vercel.com) account (free tier is sufficient)
+
+### Option 1 — Vercel Dashboard (Recommended)
+
+1. **Fork or push** this repo to your GitHub account
+2. Go to **[vercel.com/new](https://vercel.com/new)**
+3. Click **"Add New Project"** → **"Import Git Repository"**
+4. Select your repo from the list
+5. Vercel auto-detects **Next.js** — no configuration needed
+6. Click **"Deploy"**
+7. Your app is live in ~60 seconds at a `*.vercel.app` URL
+
+> No environment variables required — this app is fully static with no backend or API keys.
+
+### Option 2 — Vercel CLI
+
+```bash
+# Install the Vercel CLI globally
+npm i -g vercel
+
+# Deploy from the project folder
+vercel --prod
+```
+
+Follow the prompts to link to your Vercel account and project. Your live URL is printed at the end.
+
+---
+
+## Setting Up Claude Code to Build Your Own Version
+
+This project was built using **Claude Code** — Anthropic's AI coding assistant for VS Code. Here's how to set it up yourself:
+
+### Prerequisites
+- [VS Code](https://code.visualstudio.com) installed
+- An [Anthropic account](https://console.anthropic.com) (or Claude Pro/Team subscription)
+
+### Steps
+
+1. **Install the Claude Code extension**
+   - Open VS Code
+   - Go to Extensions (`Ctrl+Shift+X` / `⌘+Shift+X`)
+   - Search for **"Claude Code"** and install it
+
+2. **Sign in**
+   - Click the Claude Code icon in the sidebar
+   - Sign in with your Anthropic account
+
+3. **Open this project (or start fresh)**
+   ```bash
+   # Clone and open
+   git clone https://github.com/ramvijai/claude-code-sample-app.git
+   code claude-code-sample-app
+
+   # OR start fresh
+   mkdir my-ai-app && cd my-ai-app
+   code .
+   ```
+
+4. **Start prompting**
+   - Open the Claude Code chat panel in VS Code
+   - Type natural-language instructions — Claude Code reads, writes, and runs your code
 
 ---
 
@@ -67,6 +228,37 @@ A full-featured, production-ready web application showcasing **51 Generative AI 
 
 ---
 
+## Extending the App
+
+### Add a new tool
+
+Open [lib/tools.ts](lib/tools.ts) and add an entry to the `TOOLS` array:
+
+```ts
+{
+  id: 'my-tool',
+  name: 'My Tool',
+  company: 'My Company',
+  category: 'llm',          // must match a CATEGORIES id
+  featured: false,
+  description: 'One-line description.',
+  tags: ['tag1', 'tag2'],
+  url: 'https://mytool.com',
+  docsUrl: 'https://docs.mytool.com',
+  quickstartUrl: 'https://docs.mytool.com/quickstart',
+  icon: '🤖',
+  iconBg: '#6366f1',
+  quickstart: `<ol class="steps"><li>Step one</li><li>Step two</li></ol>`,
+  howtos: [
+    { title: 'How to do X', content: 'Instructions for X...' },
+  ],
+},
+```
+
+Re-run `npm run build` — the new tool gets its own page at `/tools/my-tool` automatically.
+
+---
+
 ## How This Was Built
 
 This entire application was created using **Claude Code** inside **VS Code** — from a blank folder to a deployed Next.js app — using only natural-language prompts. No boilerplate was manually written.
@@ -93,6 +285,30 @@ This entire application was created using **Claude Code** inside **VS Code** —
 
 > "Yes proceed. Ensure to use Frontend design skill. Also update the readme and all the required files."
 
+**7. Local run + deployment:**
+> "Can you review the application and ensure everything is available. Help me to run locally"
+
+> "Can you commit with proper message and push the code so that I can use Vercel to perform the deployment"
+
+**8. Live URL + docs:**
+> "I have deployed this to Vercel, can you include the URL so that users can access it and view it"
+
+> "Can you also provide clear instructions and prerequisites in the README for users to try this end to end"
+
+---
+
+## Technology Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | [Next.js 15](https://nextjs.org) — App Router, `output: 'export'` |
+| Language | TypeScript (strict mode) |
+| Styling | Tailwind CSS v3 with custom design tokens |
+| Font | Inter via `next/font/google` |
+| Deployment | Vercel |
+| AI Assistant | Claude Sonnet 4.6 via Claude Code |
+| IDE | VS Code |
+
 ---
 
 ## Key Architecture Decisions
@@ -109,78 +325,6 @@ CSS custom properties on `<html data-theme="dark|light">` — Tailwind's `darkMo
 
 ### Individual Tool Pages
 The original vanilla JS app used a modal for tool details. The Next.js version replaces this with full pages at `/tools/[id]` — better for SEO, shareable URLs, and more content space. `generateStaticParams()` pre-renders all 51 pages at build time.
-
-### Design System
-Tailwind tokens are mapped to CSS variables so the entire palette swaps between dark and light themes with a single attribute change. Accent colors (purple, blue, green, etc.) are fixed and used for category-colored card accents, button shadows, and glows.
-
----
-
-## Running Locally
-
-### Prerequisites
-- Node.js 18+
-- npm / yarn / pnpm
-
-### Steps
-
-```bash
-# Install dependencies
-npm install
-
-# Start dev server
-npm run dev
-# → http://localhost:3000
-
-# Production build (static export)
-npm run build
-# → /out directory ready to deploy
-```
-
----
-
-## Deploying to Vercel
-
-### Option 1 — Vercel Dashboard (recommended)
-1. Push this repo to GitHub
-2. Go to [vercel.com/new](https://vercel.com/new) and import the repo
-3. Framework auto-detected as **Next.js** — click **Deploy**
-4. Done — your app is live in ~60 seconds
-
-### Option 2 — Vercel CLI
-```bash
-npm i -g vercel
-vercel --prod
-```
-
----
-
-## Extending the App
-
-### Add a new tool
-Open [lib/tools.ts](lib/tools.ts) and add an entry to the `TOOLS` array:
-
-```ts
-{
-  id: 'my-tool',
-  name: 'My Tool',
-  company: 'My Company',
-  category: 'llm',          // must match a CATEGORIES id
-  featured: false,
-  description: 'One-line description.',
-  tags: ['tag1', 'tag2'],
-  url: 'https://mytool.com',
-  docsUrl: 'https://docs.mytool.com',
-  quickstartUrl: 'https://docs.mytool.com/quickstart',
-  icon: '🤖',
-  iconBg: '#6366f1',
-  quickstart: `<ol class="steps"><li>Step one</li><li>Step two</li></ol>`,
-  howtos: [
-    { title: 'How to do X', content: 'Instructions for X...' },
-  ],
-},
-```
-
-Re-run `npm run build` — the new tool gets its own page at `/tools/my-tool` automatically.
 
 ---
 
