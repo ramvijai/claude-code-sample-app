@@ -17,6 +17,9 @@ out/
 # Vercel
 .vercel
 
+# Claude Code
+.claude/
+
 # Misc
 .DS_Store
 *.pem
