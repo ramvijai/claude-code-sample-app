@@ -372,6 +372,50 @@ The original vanilla JS app used a modal for tool details. The Next.js version r
 
 ---
 
+## Live Data Architecture
+
+The app is not static — it stays up to date automatically using a combination of **Supabase**, **Claude API**, **GitHub Actions**, and **Vercel ISR**.
+
+### How it works
+
+```mermaid
+flowchart TD
+    A([🗓️ Every Monday\nGitHub Actions Cron]) --> B[sync-tools.ts\nscript runs]
+    B --> C[Fetch existing tool names\nfrom Supabase]
+    C --> D[Call Claude API\nclaude-sonnet-4-6]
+    D --> E{Claude suggests\nup to 5 new tools}
+    E -->|New tools found| F[Upsert tools\ninto Supabase DB]
+    E -->|Nothing new| Z([Done — no changes])
+    F --> G[Trigger Vercel\nDeploy Hook]
+    G --> H[Vercel rebuilds\nthe site]
+    H --> I([✅ Live site updated\nwith new tools])
+
+    J([👤 User visits site]) --> K[Next.js page\nloads]
+    K --> L[Fetch tools from\nSupabase via anon key]
+    L --> M[Page served with\nlive data]
+    M --> N[ISR revalidates\nevery 1 hour]
+    N --> L
+```
+
+### Component breakdown
+
+| Component | Role | Cost |
+|---|---|---|
+| **Supabase** | PostgreSQL database — stores all tool data | Free tier |
+| **Claude API** (Sonnet) | Discovers new AI tools weekly | ~$1.65/year |
+| **GitHub Actions** | Runs the sync cron every Monday 9am UTC | Free (public repo) |
+| **Vercel ISR** | Pages revalidate every hour without a full redeploy | Free tier |
+
+### Data flow summary
+
+1. **Write path** (weekly): GitHub Actions → Claude API → Supabase → Vercel redeploy
+2. **Read path** (every user visit): Browser → Next.js server → Supabase → rendered page
+3. **ISR fallback**: Even without a redeploy, pages auto-refresh from Supabase every hour
+
+> No manual updates needed. Claude discovers new tools, Supabase stores them, Vercel serves them — fully automated.
+
+---
+
 ## Key Takeaway
 
 This application — **51 tools, 8 categories, individual tool pages, animated hero, drag-scroll spotlight, search/filter, dark/light mode, full TypeScript, static export, Vercel-ready** — was built entirely through conversation with Claude Code.
