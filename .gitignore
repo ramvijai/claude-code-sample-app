@@ -20,6 +20,9 @@ out/
 # Claude Code
 .claude/
 
+# MCP config (contains API keys)
+.mcp.json
+
 # Misc
 .DS_Store
 *.pem
