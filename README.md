@@ -8,6 +8,14 @@ A full-featured, production-ready web application showcasing **51 Generative AI 
 
 ---
 
+## Demo Video
+
+<video src="https://github.com/ramvijai/claude-code-sample-app/raw/main/public/demo.mp4" controls width="100%">
+  <a href="https://github.com/ramvijai/claude-code-sample-app/raw/main/public/demo.mp4">Watch the demo video</a>
+</video>
+
+---
+
 ## What This App Does
 
 - **Browse 51 AI tools** across 8 categories (LLMs, Code IDEs, Code Assistants, Image Generation, Video Generation, Audio AI, AI Agents & APIs, Productivity)
