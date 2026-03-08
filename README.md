@@ -10,7 +10,7 @@ A full-featured, production-ready web application showcasing **51 Generative AI 
 
 ## Demo Video
 
-[**▶ Watch Demo — How this app was built with Claude Code in under 2 hours**](https://github.com/ramvijai/claude-code-sample-app/blob/main/public/demo.mp4)
+https://github.com/user-attachments/assets/cf7f6c53-4914-4ba6-a6ec-a421dcbc1d16
 
 ---
 
