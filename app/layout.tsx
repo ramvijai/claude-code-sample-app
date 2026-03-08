@@ -28,7 +28,9 @@ export const metadata: Metadata = {
     description:
       'The complete reference for Generative AI tools — 51 tools, 8 categories, quickstarts & how-tos.',
     type: 'website',
+    url: 'https://claude-code-sample-app.vercel.app',
   },
+  metadataBase: new URL('https://claude-code-sample-app.vercel.app'),
 };
 
 export default function RootLayout({

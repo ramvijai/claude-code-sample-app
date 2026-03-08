@@ -2,6 +2,8 @@
 
 A full-featured, production-ready web application showcasing **51 Generative AI tools** across 8 categories — complete with quickstarts, how-to guides, individual tool pages, dark/light mode, and a powerful search/filter system.
 
+**Live demo:** [https://claude-code-sample-app.vercel.app](https://claude-code-sample-app.vercel.app)
+
 > **The main purpose of this project** is to demonstrate how rapidly a high-quality, full-stack web application can be built from scratch using **Claude Code** inside **VS Code** — entirely through natural-language prompts, with zero manual boilerplate.
 
 ---
