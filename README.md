@@ -265,6 +265,29 @@ Re-run `npm run build` — the new tool gets its own page at `/tools/my-tool` au
 
 ---
 
+## How the Demo Video Was Made
+
+The demo video above was created entirely using AI tools and code — no video editing software, no manual recording.
+
+### Tools & Services Used
+
+| Tool | Role |
+|---|---|
+| **[Remotion](https://remotion.dev)** | React-based video framework — each scene is a React component with animations driven by `useCurrentFrame()` |
+| **[ElevenLabs](https://elevenlabs.io)** | AI voice generation — narration audio generated via the ElevenLabs API using the "Daniel" voice (`eleven_multilingual_v2` model) |
+| **Claude Code** | Wrote all scene components, scripted the narration, wired audio to frames, and rendered the final MP4 |
+
+### How It Was Done
+
+1. **Scenes designed in React** — 5 scenes (hook, stack, process, timeline, CTA) each built as a Remotion `React.FC` with `interpolate` and `spring` animations
+2. **Narration scripted to match visuals** — scripts were written to align with each scene's animation duration, then sent to the ElevenLabs REST API to generate MP3 files
+3. **Audio wired to frames** — MP3 durations were measured and converted to frame counts (at 30 fps) to set exact scene lengths; `Html5Audio` from Remotion plays each clip in sync
+4. **Video rendered via CLI** — `npx remotion render` exported the final `demo.mp4` directly from the React components
+
+> The entire video — scripting, animation, voiceover, and rendering — was produced through prompts to Claude Code. No manual video editing was involved.
+
+---
+
 ## How This Was Built
 
 This entire application was created using **Claude Code** inside **VS Code** — from a blank folder to a deployed Next.js app — using only natural-language prompts. No boilerplate was manually written.
